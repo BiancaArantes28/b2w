@@ -1,11 +1,6 @@
-export function fetchGet(endpoint) {
-    const headersObject = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json'},
-    };
+import axios from 'axios';
 
-    return fetch(endpoint, headersObject)
-            .then(response => response.json())
-            .then(data => data)
-            .catch(error => error);
+export function fetchGet(endpoint) {
+
+    return axios.get(endpoint);
 }
