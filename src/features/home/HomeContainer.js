@@ -4,39 +4,41 @@ import PropTypes from 'prop-types';
 
 import HomePage from './HomePage';
 
-import { fetchHelloWorld } from '../../store/actions/helloWorldActions/helloWorldActions';
-import { getHelloWorld, getStatusHelloWorld } from '../../store/selectors/helloWorldSelectors/helloWorldSelectors';
+import { searchMovies } from '../../store/actions/searchMovies/searchMoviesActions';
+import { getMoviesStatus, getMoviesResult, getMoviesTotalResults } from '../../store/selectors/searchMoviesSelectors/searchMoviesSelectors';
 
 
 class HomeContainer extends Component {
 
-    componentDidMount() {
-        this.props.fetchHelloWorld();
-    }
-
     render() {
+        const { movies, status, totalResults } = this.props;
         return (
             <HomePage
-                text={this.props.text}
-                status={this.props.status}
+                movies={movies}
+                status={status}
+                searchMovies={this.props.searchMovies}
+                totalResults={totalResults}
             />
         );
     }
 }
 
 HomeContainer.propTypes = {
-    fetchHelloWorld: PropTypes.func.isRequired,
-    text: PropTypes.string.isRequired,
+    searchMovies: PropTypes.func.isRequired,
+    movies: PropTypes.array,
+    totalResults: PropTypes.number.isRequired,
+    status: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    text: getHelloWorld(state),
-    status: getStatusHelloWorld(state),
+    status: getMoviesStatus(state),
+    movies: getMoviesResult(state),
+    totalResults: getMoviesTotalResults(state),
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchHelloWorld: () => dispatch(fetchHelloWorld()),
+        searchMovies: (payload) => dispatch(searchMovies(payload))
     };
 };
 

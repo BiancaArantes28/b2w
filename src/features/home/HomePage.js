@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import PropTypes from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 
 // Materil UI:
 import { fade, withStyles } from '@material-ui/core/styles';
@@ -92,6 +92,8 @@ class HomePage extends Component {
         }
 
         this.handleSearch = this.handleSearch.bind(this);
+        this.searchMoviesClick = this.searchMoviesClick.bind(this);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
     }
 
     renderLoading(classes) {
@@ -131,9 +133,27 @@ class HomePage extends Component {
         );
     }
 
+    searchMoviesClick() {
+        const { search } = this.state;
+
+        const payload = {
+            movieTitle: search,
+            page: 1,
+        };
+
+        this.props.searchMovies(payload);
+    }
+
     handleKeyUp(e) {
+        const { search } = this.state;
+
+        const payload = {
+            movieTitle: search,
+            page: 1,
+        };
+
         if (e.which === 13) {
-            console.log("aqui")
+            this.props.searchMovies(payload);
         }
     }
 
@@ -165,7 +185,13 @@ class HomePage extends Component {
                     </div>
                 </Grid>
                 <Grid item md={1} xs={2} className={classes.gridButton}>
-                    <Button variant="contained" color="primary" disabled={search.length === 0 ? true : false} className={classes.buttonSearch}>
+                    <Button 
+                        variant="contained" 
+                        color="primary" 
+                        disabled={search.length === 0 ? true : false} 
+                        className={classes.buttonSearch}
+                        onClick={this.searchMoviesClick}
+                    >
                         Buscar
                     </Button>
                 </Grid>
@@ -175,16 +201,18 @@ class HomePage extends Component {
 
     render() {
         let content;
-        const { classes, status, text } = this.props;
+        const { classes, status, movies } = this.props;
 
-        if (status === STATUS.INPROGRESS) {
+        /* if (status === STATUS.INPROGRESS) {
             content = this.renderLoading(classes);
-        } else if (status === STATUS.FETCHED && text !== undefined) {
+        } else if (status === STATUS.FETCHED && movies !== undefined) {
 
             content = this.renderBody();
         } else {
             content = this.renderErrorMessage();
-        }
+        } */
+
+        content = this.renderBody();
 
         return (
             <div className={classes.root}>
@@ -198,7 +226,9 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
-    text: PropTypes.string.isRequired,
+    movies: PropTypes.arrayOf(object).isRequired,
+    totalResults: PropTypes.number.isRequired,
+    searchMovies: PropTypes.func.isRequired,
     status: PropTypes.string.isRequired,
 }
 
