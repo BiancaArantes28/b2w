@@ -75,6 +75,17 @@ const styles = theme => ({
         width: '100%',
 
     },
+    searchVisible: {
+        visibility: 'visible',
+        opacity: 1,
+        transitionDelay: '0s',
+    },
+    searchInvisible: {
+        visibility: 'hidden',
+        opacity: 0,
+
+        transition: 'visibility 0s linear 0.33s, opacity 0.33s linear',
+    },
     gridButton: {
         paddingLeft: '0px !important',
         paddingRight: '0px !important',
@@ -88,7 +99,7 @@ const styles = theme => ({
     listVisible: {
         visibility: 'visible',
         opacity: 1,
-        transitionDelay: '0s',
+        transition: 'visibility 1s linear 0.33s, opacity 0.33s linear',
     },
     listHidden: {
         visibility: 'hidden',
@@ -110,6 +121,8 @@ class HomePage extends Component {
 
         this.state = {
             search: '',
+            listHidden: true,
+            searchHidden: false,
         }
 
         this.handleSearch = this.handleSearch.bind(this);
@@ -162,7 +175,7 @@ class HomePage extends Component {
             movieTitle: search,
             page: 1,
         };
-
+        this.setState({ listHidden: false, searchHidden: true })
         this.props.searchMovies(payload);
     }
 
@@ -176,6 +189,7 @@ class HomePage extends Component {
 
         if (e.which === 13 && search.length > 0) {
             this.props.searchMovies(payload);
+            this.setState({ listHidden: false, searchHidden: true })
         }
     }
 
@@ -202,10 +216,10 @@ class HomePage extends Component {
 
     renderBody() {
         const { classes, movies, status } = this.props;
-        const { search } = this.state;
+        const { search, searchHidden } = this.state;
 
         return (
-            <Fragment>
+            <Grid container spacing={3} className={searchHidden ? classes.searchInvisible : classes.searchVisible}>
                 <Grid item md={11} xs={10}>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
@@ -234,21 +248,23 @@ class HomePage extends Component {
                         Buscar
                     </Button>
                 </Grid>
+            </Grid>
 
-            </Fragment>
+
         )
     }
 
     renderListMovies() {
-        const { classes, movies, page } = this.props;
+        const { classes, movies, page, status } = this.props;
+        const { listHidden } = this.state;
 
         return (
-            <Fragment>
+            <Grid container spacing={3} className={listHidden ? classes.listHidden : classes.listVisible}>
                 <ListMovies movies={movies} />
                 <div className={classes.boxPagination}>
                     <PaginationComponent total={this.calculateTotalResults()} changePage={this.changePage} page={page} />
                 </div>
-            </Fragment>
+            </Grid>
         );
     }
 
@@ -256,7 +272,7 @@ class HomePage extends Component {
         let content;
         const { classes, status, movies } = this.props;
 
-        if (status === STATUS.INPROGRESS) {
+        /* if (status === STATUS.INPROGRESS) {
             content = this.renderLoading(classes);
         } else if (status === STATUS.NOT_FETCHED) {
 
@@ -265,15 +281,20 @@ class HomePage extends Component {
             content = this.renderListMovies()
         } else {
             content = this.renderErrorMessage();
-        }
+        } */
 
+        if (status === STATUS.INPROGRESS) {
+            return this.renderLoading(classes);
+        }
 
         return (
             <div className={classes.root}>
-                <Grid container spacing={3}>
-                    {content}
-                </Grid>
-
+                {this.renderBody()}
+                {
+                    movies !== undefined ?
+                        this.renderListMovies() :
+                        this.renderErrorMessage()
+                }
             </div>
         );
     }

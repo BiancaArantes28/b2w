@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -11,6 +13,9 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { getMoviesResult, getMoviesStatus, getMoviePage } from '../../store/selectors/searchMoviesSelectors/searchMoviesSelectors';
+import { STATUS } from '../../const/status';
+import { searchMovies } from '../../store/actions/searchMovies/searchMoviesActions';
 
 
 const useStyles = makeStyles(theme => ({
@@ -32,7 +37,18 @@ const useStyles = makeStyles(theme => ({
       marginLeft: theme.spacing(3),
       width: 'auto',
     },
-    
+
+  },
+  searchVisible: {
+    visibility: 'visible',
+    opacity: 1,
+    transition: 'visibility 1s linear 0.33s, opacity 0.33s linear'
+  },
+  searchInvisible: {
+    visibility: 'hidden',
+    opacity: 0,
+
+    transition: 'visibility 0s linear 0.33s, opacity 0.33s linear',
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -88,14 +104,29 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Header() {
+function Header(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [search, setSearch] = React.useState('');
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  const handleChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  /* const handleKeyPress = (event) => {
+    const payload = {
+      movieTitle: search,
+      page: props.page,
+    }
+    if (event.which === 13 && search.length > 0) {
+      props.searchMovies(payload);
+    }
+  }
+ */
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -112,6 +143,14 @@ export default function Header() {
   const handleMobileMenuOpen = event => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const searchMoviesClick = () => {
+    const payload = {
+      movieTitle: search,
+      page: props.page,
+    }
+    props.searchMovies(payload);
+  }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -162,7 +201,7 @@ export default function Header() {
         <Container fixed>
           <Toolbar className={classes.toolbar}>
             <img src="https://ri.b2w.digital/img/2013/logo.png" alt="B2W Digital" width="40px" />
-            <div className={classes.search}>
+            <div className={`${classes.search} ${props.status === STATUS.NOT_FETCHED ? classes.searchInvisible : classes.searchVisible}`}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
@@ -173,8 +212,21 @@ export default function Header() {
                   input: classes.inputInput,
                 }}
                 inputProps={{ 'aria-label': 'search' }}
+                onChange={handleChange}
               />
+
+
             </div>
+            {
+              props.status === STATUS.NOT_FETCHED ?
+                null :
+                <Button variant="contained"
+                  color="primary"
+                  disabled={search.length === 0 ? true : false}
+                  className={classes.buttonSearch}
+                  onClick={searchMoviesClick}>Buscar</Button>
+            }
+
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
               <MenuItem><Link to="/" className={classes.link}>Home</Link></MenuItem>
@@ -208,3 +260,17 @@ export default function Header() {
     </div>
   );
 }
+
+const mapStateToProps = (state) => ({
+  status: getMoviesStatus(state),
+  movies: getMoviesResult(state),
+  pages: getMoviePage(state),
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    searchMovies: (payload) => dispatch(searchMovies(payload))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

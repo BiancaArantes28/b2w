@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes, { object } from 'prop-types';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 
@@ -17,7 +17,6 @@ class PaginationComponent extends Component {
 
     constructor(props) {
         super(props);
-
 
         this.handleChange = this.handleChange.bind(this);
     }

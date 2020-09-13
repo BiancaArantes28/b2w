@@ -35,6 +35,7 @@ const failedSearchMovies = (state, error) => {
     return {
         ...state,
         status: STATUS.INPROGRESS,
+        movies: [],
         error
     };
 }
