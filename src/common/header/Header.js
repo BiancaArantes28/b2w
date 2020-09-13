@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -105,9 +105,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Header(props) {
+  
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [search, setSearch] = React.useState('');
+  const [shouldRedirect, setShouldRedirect] = React.useState(false);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
@@ -124,6 +126,9 @@ function Header(props) {
     }
     if (event.which === 13 && search.length > 0) {
       props.searchMovies(payload);
+      if (window.location.pathname !== '/') {
+        setShouldRedirect(true);
+      }
     }
   }
 
@@ -151,6 +156,9 @@ function Header(props) {
     }
     if (search.length > 0) {
       props.searchMovies(payload);
+      if (window.location.pathname !== '/') {
+        setShouldRedirect(true);
+      }
     }
   }
 
@@ -260,6 +268,10 @@ function Header(props) {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      {
+        shouldRedirect ?
+        <Redirect to="/" /> : null
+      }
     </div>
   );
 }

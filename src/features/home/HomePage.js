@@ -121,8 +121,8 @@ class HomePage extends Component {
 
         this.state = {
             search: '',
-            listHidden: true,
-            searchHidden: false,
+            listHidden: props.status && props.status === STATUS.NOT_FETCHED ? true : false,
+            searchHidden: props.status && props.status === STATUS.NOT_FETCHED ? false : true,
         }
 
         this.handleSearch = this.handleSearch.bind(this);

@@ -5,6 +5,7 @@ import Container from '@material-ui/core/Container';
 
 import Header from './common/header/Header';
 import HomeContainer from './features/home/HomeContainer';
+import MovieDetailContainer from './features/detail/MovieDetailContainer';
 
 import store from './store';
 import './App.css';
@@ -18,6 +19,7 @@ function App() {
           <Container fixed>
             <Switch>
               <Route exact path="/" component={HomeContainer} />
+              <Route path="/detail/:imdbID" component={MovieDetailContainer} />
               <Redirect to="/" />
             </Switch>
           </Container>
