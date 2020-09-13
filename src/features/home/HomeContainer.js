@@ -5,17 +5,18 @@ import PropTypes from 'prop-types';
 import HomePage from './HomePage';
 
 import { searchMovies } from '../../store/actions/searchMovies/searchMoviesActions';
-import { getMoviesStatus, getMoviesResult, getMoviesTotalResults, getMoviePage } from '../../store/selectors/searchMoviesSelectors/searchMoviesSelectors';
+import { getMoviesStatus, getMoviesResult, getMoviesTotalResults, getMoviePage, getSearchMovie } from '../../store/selectors/searchMoviesSelectors/searchMoviesSelectors';
 
 
 class HomeContainer extends Component {
 
     render() {
-        const { movies, page, status, totalResults } = this.props;
+        const { movies, page, search, status, totalResults } = this.props;
         return (
             <HomePage
                 movies={movies}
                 status={status}
+                search={search}
                 page={page}
                 searchMovies={this.props.searchMovies}
                 totalResults={totalResults}
@@ -33,9 +34,10 @@ HomeContainer.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    status: getMoviesStatus(state),
     movies: getMoviesResult(state),
     page: getMoviePage(state),
+    search: getSearchMovie(state),
+    status: getMoviesStatus(state),
     totalResults: getMoviesTotalResults(state),
 });
 

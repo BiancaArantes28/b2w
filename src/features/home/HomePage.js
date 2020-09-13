@@ -204,7 +204,7 @@ class HomePage extends Component {
     }
 
     changePage(page) {
-        const { search } = this.state;
+        const { search } = this.props;
 
         const payload = {
             movieTitle: search,
