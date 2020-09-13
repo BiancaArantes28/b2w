@@ -117,7 +117,7 @@ function Header(props) {
     setSearch(event.target.value);
   };
 
-  /* const handleKeyPress = (event) => {
+  const handleKeyPress = (event) => {
     const payload = {
       movieTitle: search,
       page: props.page,
@@ -126,7 +126,7 @@ function Header(props) {
       props.searchMovies(payload);
     }
   }
- */
+
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -213,6 +213,7 @@ function Header(props) {
                 }}
                 inputProps={{ 'aria-label': 'search' }}
                 onChange={handleChange}
+                onKeyPress={handleKeyPress}
               />
 
 
