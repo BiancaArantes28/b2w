@@ -4,9 +4,9 @@ import { Grid } from '@material-ui/core';
 
 const styles = (theme) => ({
     scoreMovie: {
-        width: '60px',
-        margin: 'auto !important',
+        width: '90%',
         display: 'table',
+        borderRadius: '4px'
     },
     scoreMovieP: {
         fontSize: '48px',
@@ -84,12 +84,12 @@ const styles = (theme) => ({
         zIndex: 9,
     },
     divScore: {
-        width: '10%',
+        width: '5%',
         float: 'left',
         height: '100px',
     },
     divAllSquare: {
-        width: '90%',
+        width: '95%',
         float: 'left',
     },
     divSquares: {
