@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 });
 
 const renderTooltip = (movie, classes) => (
-    <div>
+    <Fragment>
         <div>
             <img src={movie.Poster} width="100%" />
         </div>
@@ -48,7 +48,7 @@ const renderTooltip = (movie, classes) => (
         <div className={classes.actionTooltip}>
             <Button variant="contained" color="primary">+ Info</Button>
         </div>
-    </div>
+    </Fragment>
 
 );
 

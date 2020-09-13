@@ -9,12 +9,15 @@ import { withoutError } from '../../../const/success';
 const defaultState = {
     status: STATUS.NOT_FETCHED,
     movies: [],
-    totalResults: 0
+    totalResults: 0,
+    page: 1,
 }
 
-const inProgressSearchMovies = (state) => {
+const inProgressSearchMovies = (state, payload) => {
     return {
         ...state,
+        search: payload.movieTitle,
+        page: payload.page,
         status: STATUS.INPROGRESS
     };
 }
@@ -39,7 +42,7 @@ const failedSearchMovies = (state, error) => {
 export default function searchMoviesReducer(state = defaultState, action) {
     switch (action.type) {
         case SEARCH_MOVIES:
-            return inProgressSearchMovies(state);
+            return inProgressSearchMovies(state, action.payload);
 
         case SEARCH_MOVIES_SUCCESSFUL:
             return successfulSearchMovies(state, action.payload);

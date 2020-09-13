@@ -18,6 +18,7 @@ import AlertComponent from '../../common/alert/AlertComponent';
 // Constants:
 import { STATUS } from '../../const/status';
 import ListMovies from './ListMovies';
+import PaginationComponent from '../../common/pagination/PaginationComponent';
 
 
 
@@ -83,6 +84,22 @@ const styles = theme => ({
     },
     listMovies: {
         marginTop: 30,
+    },
+    listVisible: {
+        visibility: 'visible',
+        opacity: 1,
+        transitionDelay: '0s',
+    },
+    listHidden: {
+        visibility: 'hidden',
+        opacity: 0,
+
+        transition: 'visibility 0s linear 0.33s, opacity 0.33s linear',
+    },
+    boxPagination: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
     }
 });
 
@@ -98,6 +115,7 @@ class HomePage extends Component {
         this.handleSearch = this.handleSearch.bind(this);
         this.searchMoviesClick = this.searchMoviesClick.bind(this);
         this.handleKeyUp = this.handleKeyUp.bind(this);
+        this.changePage = this.changePage.bind(this);
     }
 
     renderLoading(classes) {
@@ -165,8 +183,25 @@ class HomePage extends Component {
         this.setState({ search: e.target.value });
     }
 
+    calculateTotalResults() {
+        const { totalResults } = this.props;
+
+        return Math.ceil(totalResults / 10);
+    }
+
+    changePage(page) {
+        const { search } = this.state;
+
+        const payload = {
+            movieTitle: search,
+            page,
+        }
+
+        this.props.searchMovies(payload);
+    }
+
     renderBody() {
-        const { classes } = this.props;
+        const { classes, movies, status } = this.props;
         const { search } = this.state;
 
         return (
@@ -199,15 +234,21 @@ class HomePage extends Component {
                         Buscar
                     </Button>
                 </Grid>
+
             </Fragment>
         )
     }
 
     renderListMovies() {
-        const { classes, movies } = this.props;
+        const { classes, movies, page } = this.props;
 
         return (
-            <ListMovies movies={movies} />
+            <Fragment>
+                <ListMovies movies={movies} />
+                <div className={classes.boxPagination}>
+                    <PaginationComponent total={this.calculateTotalResults()} changePage={this.changePage} page={page} />
+                </div>
+            </Fragment>
         );
     }
 
@@ -225,6 +266,7 @@ class HomePage extends Component {
         } else {
             content = this.renderErrorMessage();
         }
+
 
         return (
             <div className={classes.root}>
