@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 const renderTooltip = (movie, classes) => (
     <Fragment>
         <div>
-            <img src={movie.Poster} width="100%" />
+            <img src={movie.Poster === 'N/A' ? `/assets/image-not-found.png` : movie.Poster} width="100%" />
         </div>
         <table className={classes.tableTooltip}>
             <tbody>
@@ -61,7 +61,7 @@ const MovieCard = (props) => {
                 <Tooltip title={renderTooltip(props.movie, classes)} interactive>
                     <CardMedia
                         className={classes.media}
-                        image={props.movie.Poster}
+                        image={props.movie.Poster === 'N/A' ? `/assets/image-not-found.png` : props.movie.Poster}
                         title={props.movie.Title}
                     />
                 </Tooltip>
