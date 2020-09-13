@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
+import MovieScore from './MovieScore';
 
 const styles = theme => ({
     gridButton: {
@@ -35,13 +36,13 @@ class MovieDetailPage extends Component {
 
     render() {
         const { classes } = this.props;
-
+        const movie = {
+            imdbRating: 8,
+        }
         return (
             <Grid container spacing={3}>
                 {this.renderBackButton()}
-                <Grid item md={12} xs={12}>
-                    <h1>Movie Detail Page</h1>
-                </Grid>
+                <MovieScore movie={movie} />
                 {this.renderBackButton()}
             </Grid>
 
