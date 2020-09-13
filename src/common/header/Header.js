@@ -120,7 +120,7 @@ function Header(props) {
   const handleKeyPress = (event) => {
     const payload = {
       movieTitle: search,
-      page: props.page,
+      page: props.page === undefined ? 1 : props.page,
     }
     if (event.which === 13 && search.length > 0) {
       props.searchMovies(payload);
@@ -147,9 +147,11 @@ function Header(props) {
   const searchMoviesClick = () => {
     const payload = {
       movieTitle: search,
-      page: props.page,
+      page: props.page === undefined ? 1 : props.page,
     }
-    props.searchMovies(payload);
+    if (search.length > 0) {
+      props.searchMovies(payload);
+    }
   }
 
   const menuId = 'primary-search-account-menu';
