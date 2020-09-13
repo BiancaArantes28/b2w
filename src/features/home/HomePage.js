@@ -17,6 +17,7 @@ import AlertComponent from '../../common/alert/AlertComponent';
 
 // Constants:
 import { STATUS } from '../../const/status';
+import ListMovies from './ListMovies';
 
 
 
@@ -78,6 +79,9 @@ const styles = theme => ({
         paddingRight: '0px !important',
     },
     buttonSearch: {
+        marginTop: 30,
+    },
+    listMovies: {
         marginTop: 30,
     }
 });
@@ -152,7 +156,7 @@ class HomePage extends Component {
             page: 1,
         };
 
-        if (e.which === 13) {
+        if (e.which === 13 && search.length > 0) {
             this.props.searchMovies(payload);
         }
     }
@@ -185,10 +189,10 @@ class HomePage extends Component {
                     </div>
                 </Grid>
                 <Grid item md={1} xs={2} className={classes.gridButton}>
-                    <Button 
-                        variant="contained" 
-                        color="primary" 
-                        disabled={search.length === 0 ? true : false} 
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        disabled={search.length === 0 ? true : false}
                         className={classes.buttonSearch}
                         onClick={this.searchMoviesClick}
                     >
@@ -199,20 +203,28 @@ class HomePage extends Component {
         )
     }
 
+    renderListMovies() {
+        const { classes, movies } = this.props;
+
+        return (
+            <ListMovies movies={movies} />
+        );
+    }
+
     render() {
         let content;
         const { classes, status, movies } = this.props;
 
-        /* if (status === STATUS.INPROGRESS) {
+        if (status === STATUS.INPROGRESS) {
             content = this.renderLoading(classes);
-        } else if (status === STATUS.FETCHED && movies !== undefined) {
+        } else if (status === STATUS.NOT_FETCHED) {
 
             content = this.renderBody();
+        } else if (status === STATUS.FETCHED && movies.length > 0) {
+            content = this.renderListMovies()
         } else {
             content = this.renderErrorMessage();
-        } */
-
-        content = this.renderBody();
+        }
 
         return (
             <div className={classes.root}>
