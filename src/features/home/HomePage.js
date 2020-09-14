@@ -148,7 +148,7 @@ class HomePage extends Component {
                 <AlertComponent
                     severity={"error"}
                     title={"Não encontrado"}
-                    content={"Desculpe, não foi encontrado nenhum texto!"}
+                    content={"Desculpe, não foi encontrado nenhum filme!"}
                 />
             </Grid>
 
