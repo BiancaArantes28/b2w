@@ -73,7 +73,8 @@ const useStyles = makeStyles(theme => ({
     },
   },
   buttonSearch: {
-    [theme.breakpoints.up('xs')]: {
+    display: 'block',
+    [theme.breakpoints.down('xs')]: {
       display: 'none',
     }
   },
