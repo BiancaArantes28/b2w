@@ -6,7 +6,11 @@ const styles = (theme) => ({
     scoreMovie: {
         width: '90%',
         display: 'table',
-        borderRadius: '4px'
+        borderRadius: '4px',
+        [theme.breakpoints.down('sm')]: {
+            width: '30%',
+            margin: 'auto'
+        }
     },
     scoreMovieP: {
         fontSize: '48px',
@@ -87,10 +91,16 @@ const styles = (theme) => ({
         width: '5%',
         float: 'left',
         height: '100px',
+        [theme.breakpoints.down('sm')]: {
+            width: '100%'
+        }
     },
     divAllSquare: {
         width: '95%',
         float: 'left',
+        [theme.breakpoints.down('sm')]: {
+            width: '100%'
+        }
     },
     divSquares: {
         width: '100%',

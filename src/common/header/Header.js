@@ -33,8 +33,9 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
+    [theme.breakpoints.up('xs')]: {
+      marginLeft: 10,
+      marginRight: 0,
       width: 'auto',
     },
 
@@ -64,13 +65,17 @@ const useStyles = makeStyles(theme => ({
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
       width: '20ch',
     },
+  },
+  buttonSearch: {
+    [theme.breakpoints.up('xs')]: {
+      display: 'none',
+    }
   },
   sectionDesktop: {
     display: 'none',
@@ -216,7 +221,7 @@ function Header(props) {
                 <SearchIcon />
               </div>
               <InputBase
-                placeholder="Search…"
+                placeholder="Procure seu Filme"
                 classes={{
                   root: classes.inputRoot,
                   input: classes.inputInput,

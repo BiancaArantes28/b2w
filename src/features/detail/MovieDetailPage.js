@@ -19,13 +19,8 @@ const styles = theme => ({
     table: {
         minWidth: '100%',
     },
-    head: {
-        backgroundColor: theme.palette.common.black,
-
-    },
-    headTableCell: {
-        color: '#ffffff !important',
-        minWidth: '10%'
+    tdJustify: {
+        textAlign: 'justify',
     },
     body: {
         fontSize: 14,
@@ -87,13 +82,13 @@ class MovieDetailPage extends Component {
                         <td><strong>Director: </strong>{movie.Director}</td>
                     </tr>
                     <tr>
-                        <td><strong>Writer: </strong>{movie.Writer}</td>
+                        <td className={classes.tdJustify}><strong>Writer: </strong>{movie.Writer}</td>
                     </tr>
                     <tr>
-                        <td><strong>Actors: </strong>{movie.Actors}</td>
+                        <td className={classes.tdJustify}><strong>Actors: </strong>{movie.Actors}</td>
                     </tr>
                     <tr>
-                        <td><strong>Plot: </strong>{movie.Plot}</td>
+                        <td className={classes.tdJustify}><strong>Plot: </strong>{movie.Plot}</td>
                     </tr>
                     <tr>
                         <td><strong>Language: </strong>{movie.Language}</td>
@@ -132,7 +127,7 @@ class MovieDetailPage extends Component {
                     <MovieScore movie={movie} />
                 </div>
                 <Grid item md={3} xs={12} className={classes.gridTable}>
-                    <img src={movie.Poster === 'N/A' ? `/assets/image-not-found.png` : movie.Poster} />
+                    <img src={movie.Poster === 'N/A' ? `/assets/image-not-found.png` : movie.Poster} width="100%" />
                 </Grid>
                 <Grid item md={9} xs={12} className={classes.gridTable}>
                     {this.renderTable()}

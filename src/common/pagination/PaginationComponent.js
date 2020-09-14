@@ -27,10 +27,11 @@ class PaginationComponent extends Component {
 
     render() {
         const { classes, page, total } = this.props;
+        let windowWidth = window.innerWidth;
 
         return (
             <div className={classes.root}>
-                <Pagination count={total} page={page} onChange={this.handleChange} />
+                <Pagination color="secondary" count={total} page={page} onChange={this.handleChange} size={windowWidth < 960 ? 'small' : 'large'} />
             </div>
         );
     }

@@ -25,7 +25,7 @@ const ListMovies = (props) => {
             {
                 props.movies.map(movie => {
                     return (
-                        <Grid item xs={3} key={movie.imdbID}>
+                        <Grid item xs={12} md={3} key={movie.imdbID}>
                             <div className={classes.root}>
                                 <MovieCard
                                     movie={movie}

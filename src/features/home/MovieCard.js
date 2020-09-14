@@ -62,7 +62,7 @@ const MovieCard = (props) => {
     return (
         <Card className={classes.root}>
             <CardActionArea>
-                <Tooltip title={renderTooltip(props.movie, classes)} interactive>
+                <Tooltip title={renderTooltip(props.movie, classes)} enterTouchDelay={0} interactive>
                     <CardMedia
                         className={classes.media}
                         image={props.movie.Poster === 'N/A' ? `/assets/image-not-found.png` : props.movie.Poster}

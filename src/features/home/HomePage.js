@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 import PropTypes, { object } from 'prop-types';
 
@@ -155,19 +155,6 @@ class HomePage extends Component {
         );
     }
 
-    renderTitle(title, styledClass) {
-        return (
-            <div>
-                <Typography variant="h3">
-                    {title}
-                </Typography>
-                <Typography variant="h6" className={styledClass}>
-                    Mar 2020
-                </Typography>
-            </div>
-        );
-    }
-
     searchMoviesClick() {
         const { search } = this.state;
 
@@ -215,12 +202,12 @@ class HomePage extends Component {
     }
 
     renderBody() {
-        const { classes, movies, status } = this.props;
+        const { classes } = this.props;
         const { search, searchHidden } = this.state;
 
         return (
             <Grid container spacing={3} className={searchHidden ? classes.searchInvisible : classes.searchVisible}>
-                <Grid item md={11} xs={10}>
+                <Grid item md={11} xs={8}>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
@@ -237,7 +224,7 @@ class HomePage extends Component {
                         />
                     </div>
                 </Grid>
-                <Grid item md={1} xs={2} className={classes.gridButton}>
+                <Grid item md={1} xs={4} className={classes.gridButton}>
                     <Button
                         variant="contained"
                         color="primary"
@@ -255,7 +242,7 @@ class HomePage extends Component {
     }
 
     renderListMovies() {
-        const { classes, movies, page, status } = this.props;
+        const { classes, movies, page } = this.props;
         const { listHidden } = this.state;
 
         return (
@@ -269,19 +256,7 @@ class HomePage extends Component {
     }
 
     render() {
-        let content;
         const { classes, status, movies } = this.props;
-
-        /* if (status === STATUS.INPROGRESS) {
-            content = this.renderLoading(classes);
-        } else if (status === STATUS.NOT_FETCHED) {
-
-            content = this.renderBody();
-        } else if (status === STATUS.FETCHED && movies.length > 0) {
-            content = this.renderListMovies()
-        } else {
-            content = this.renderErrorMessage();
-        } */
 
         if (status === STATUS.INPROGRESS) {
             return this.renderLoading(classes);
