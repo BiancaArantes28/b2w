@@ -25,6 +25,7 @@ const styles = theme => ({
     },
     headTableCell: {
         color: '#ffffff !important',
+        minWidth: '10%'
     },
     body: {
         fontSize: 14,
@@ -65,73 +66,75 @@ class MovieDetailPage extends Component {
         const { movie, classes } = this.props;
 
         return (
-            <Table className={classes.table} size="small" aria-label="a dense table">
-                <TableHead className={classes.head}>
-                    <TableRow>
-                        <TableCell className={classes.headTableCell} align="left">Title</TableCell>
-                        <TableCell className={classes.headTableCell} align="left">Year</TableCell>
-                        <TableCell className={classes.headTableCell} align="left">Rated</TableCell>
-                        <TableCell className={classes.headTableCell} align="left">Released</TableCell>
-                        <TableCell className={classes.headTableCell} align="left">Director</TableCell>
-                        <TableCell className={classes.headTableCell} align="left">Writer</TableCell>
-                        <TableCell className={classes.headTableCell} align="left">Actors</TableCell>
-                        <TableCell className={classes.headTableCell} align="left">Plot</TableCell>
-
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    <TableRow>
-                        <TableCell align="left">Teste</TableCell>
-                        <TableCell align="left">Teste</TableCell>
-                        <TableCell align="left">Teste</TableCell>
-                        <TableCell align="left">Teste</TableCell>
-                        <TableCell align="left">Teste</TableCell>
-                        <TableCell align="left">Teste</TableCell>
-                        <TableCell align="left">Teste</TableCell>
-                        <TableCell align="left">Teste</TableCell>
-
-                    </TableRow>
-                </TableBody>
-                <TableHead className={classes.head}>
-                    <TableRow>
-                        <TableCell className={classes.headTableCell} align="left">Language</TableCell>
-                        <TableCell className={classes.headTableCell} align="left">Country</TableCell>
-                        <TableCell className={classes.headTableCell} align="left">Awards</TableCell>
-                        <TableCell className={classes.headTableCell} align="left">Metascore</TableCell>
-                        <TableCell className={classes.headTableCell} align="left">imdbVotes</TableCell>
-                        <TableCell className={classes.headTableCell} align="left">imdbiD</TableCell>
-                        <TableCell className={classes.headTableCell} align="left">Type</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    <TableRow>
-
-                        <TableCell align="lett">Teste</TableCell>
-                        <TableCell align="left">Teste</TableCell>
-                        <TableCell align="left">Teste</TableCell>
-                        <TableCell align="left">Teste</TableCell>
-                        <TableCell align="left">Teste</TableCell>
-                        <TableCell align="left">Teste</TableCell>
-                        <TableCell align="left">Teste</TableCell>
-                    </TableRow>
-                </TableBody>
-            </Table>
+            <table>
+                <tbody>
+                    <tr>
+                        <td><strong>Title: </strong>{movie.Title}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Year: </strong>{movie.Year}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rated: </strong>{movie.Rated}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Released: </strong>{movie.Released}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Genre: </strong>{movie.Genre}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Director: </strong>{movie.Director}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Writer: </strong>{movie.Writer}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Actors: </strong>{movie.Actors}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Plot: </strong>{movie.Plot}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Language: </strong>{movie.Language}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Country: </strong>{movie.Country}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Awards: </strong>{movie.Awards}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Metascore: </strong>{movie.Metascore}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>imdbVotes: </strong>{movie.imdbVotes}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>imdbiD: </strong>{movie.imdbiD}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Type: </strong>{movie.Type}</td>
+                    </tr>
+                </tbody>
+            </table>
         );
 
     }
 
     render() {
-        const { classes } = this.props;
-        const movie = {
-            imdbRating: 8,
-        }
+        const { classes, movie } = this.props;
+
         return (
             <Grid container spacing={3}>
                 {this.renderBackButton()}
                 <div className={classes.movieScoreDiv}>
                     <MovieScore movie={movie} />
                 </div>
-                <Grid item md={12} xs={12} className={classes.gridTable}>
+                <Grid item md={3} xs={12} className={classes.gridTable}>
+                    <img src={movie.Poster === 'N/A' ? `/assets/image-not-found.png` : movie.Poster} />
+                </Grid>
+                <Grid item md={9} xs={12} className={classes.gridTable}>
                     {this.renderTable()}
                 </Grid>
 

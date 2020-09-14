@@ -170,7 +170,7 @@ class MovieScore extends Component {
             <Fragment>
                 <div className={classes.divScore}>
                     <div className={`${classes.scoreMovie} ${this.returnClassNameScore()}`}>
-                        <p className={`${classes.scoreMovieP} ${this.returnClassNameP()}`}>{movie.imdbRating}</p>
+                        <p className={`${classes.scoreMovieP} ${this.returnClassNameP()}`}>{Math.round(movie.imdbRating)}</p>
                     </div>
                 </div>
                 <div className={classes.divAllSquare}>
