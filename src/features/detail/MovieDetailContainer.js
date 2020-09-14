@@ -11,9 +11,7 @@ class MovieDetailContainer extends Component {
     componentDidMount() {
         const { imdbID } = this.props.match.params;
 
-        if(this.props.status === STATUS.NOT_FETCHED) {
-            this.props.detailMovie(imdbID);
-        }
+        this.props.detailMovie(imdbID);
     }
 
     render() {
