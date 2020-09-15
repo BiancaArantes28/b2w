@@ -1,4 +1,6 @@
-This project is a test to Front end Developer at Hanzo.
+B2W challenge
+
+# This project can be run with Docker or available scripts:
 
 ## Available Scripts
 
@@ -26,6 +28,16 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+## Run with Docker
+
+Build image:
+
+`docker build -t sample:dev .`
+
+Start:
+
+`docker run -v ${PWD}:/app -v /app/node_modules -p 3001:3000 --rm sample:dev`
 
 ### Material UI
 
