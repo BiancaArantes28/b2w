@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Tooltip from '@material-ui/core/Tooltip';
 import Grid from '@material-ui/core/Grid';
 import MovieCard from './MovieCard';
 
@@ -38,6 +36,10 @@ const ListMovies = (props) => {
             }
         </Fragment>
     );
+}
+
+ListMovies.propTypes = {
+    movie: PropTypes.object,
 }
 
 export default ListMovies;

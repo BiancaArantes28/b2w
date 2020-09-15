@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
 
 const styles = (theme) => ({
     scoreMovie: {
@@ -150,7 +150,7 @@ class MovieScore extends Component {
         return (
             <div key={row} className={`${classes.scores} ${row === 10 ? classes.score10 : ''}`}>
                 <div className={classes.contentOval}>
-                    <img className={classes.ovalImg} src={`/assets/oval.svg`} />
+                    <img className={classes.ovalImg} src={`/assets/oval.svg`} alt="point img" />
                 </div>
             </div>
         );
@@ -162,7 +162,7 @@ class MovieScore extends Component {
             <div key={row} className={classes.scoresImg}>
                 {
                     Math.round(movie.imdbRating) === row ?
-                        <img src={`/assets/triangle.svg`} /> : null
+                        <img src={`/assets/triangle.svg`} alt="score arrow" /> : null
                 }
 
             </div>
@@ -211,6 +211,10 @@ class MovieScore extends Component {
             </Fragment>
         );
     }
+}
+
+MovieScore.propTypes = {
+    movie: PropTypes.object,
 }
 
 export default withStyles(styles, { withTheme: true })(MovieScore);

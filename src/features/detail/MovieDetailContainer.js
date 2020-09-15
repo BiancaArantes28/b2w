@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import MovieDetailPage from './MovieDetailPage';
 import { detailMovie } from '../../store/actions/searchMovies/detailMovieActions';
 import { getMovieInfo, getStatusMovieDetail } from '../../store/selectors/searchMoviesSelectors/detailMovieSelectors';
-import { STATUS } from '../../const/status';
 
 class MovieDetailContainer extends Component {
 

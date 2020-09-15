@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 const renderTooltip = (movie, classes) => (
     <Fragment>
         <div>
-            <img src={movie.Poster === 'N/A' ? `/assets/image-not-found.png` : movie.Poster} width="100%" />
+            <img src={movie.Poster === 'N/A' ? `/assets/image-not-found.png` : movie.Poster} alt={movie.title} width="100%" />
         </div>
         <table className={classes.tableTooltip}>
             <tbody>
@@ -73,6 +73,10 @@ const MovieCard = (props) => {
             </CardActionArea>
         </Card>
     );
+}
+
+MovieCard.propTypes = {
+    movie: PropTypes.object,
 }
 
 export default MovieCard;

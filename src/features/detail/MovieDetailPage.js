@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import MovieScore from './MovieScore';
 
 const styles = theme => ({
@@ -127,7 +123,7 @@ class MovieDetailPage extends Component {
                     <MovieScore movie={movie} />
                 </div>
                 <Grid item md={3} xs={12} className={classes.gridTable}>
-                    <img src={movie.Poster === 'N/A' ? `/assets/image-not-found.png` : movie.Poster} width="100%" />
+                    <img src={movie.Poster === 'N/A' ? `/assets/image-not-found.png` : movie.Poster} alt={movie.Title} width="100%" />
                 </Grid>
                 <Grid item md={9} xs={12} className={classes.gridTable}>
                     {this.renderTable()}
@@ -138,6 +134,10 @@ class MovieDetailPage extends Component {
 
         );
     }
+}
+
+MovieDetailPage.propTypes = {
+    movie: PropTypes.object,
 }
 
 export default withStyles(styles, { withTheme: true })(MovieDetailPage);
