@@ -39,6 +39,8 @@ Start:
 
 `docker run -v ${PWD}:/app -v /app/node_modules -p 3001:3000 --rm sample:dev`
 
+App is running in `http://localhost:3001/`
+
 ### Material UI
 
 This project uses  Material UI. The default theme is at [theme.js](src/theme.js)
